@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data Science for Economists</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alex Marsh" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data Science for Economists
+## Lecture 1: Introduction
+### Alex Marsh
+### University of North Carolina | <a
+href="https://github.com/alexiom/ECON370">ECON 370</a>
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+# CSS for including pauses in printed PDF output (see bottom of lecture)
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+&lt;/style&gt;
+
+
+
+
+# Table of contents
+
+1. [Prologue](#prologue)
+
+2. [Syllabus highlights](#syllabus)
+
+3. [Getting started](#started)
+
+4. [R for data science](#r4ds)
+
+5. [Data visualization with ggplot2](#ggplot2)
+
+<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M471.99 334.43L336.06 256l135.93-78.43c7.66-4.42 10.28-14.2 5.86-21.86l-32.02-55.43c-4.42-7.65-14.21-10.28-21.87-5.86l-135.93 78.43V16c0-8.84-7.17-16-16.01-16h-64.04c-8.84 0-16.01 7.16-16.01 16v156.86L56.04 94.43c-7.66-4.42-17.45-1.79-21.87 5.86L2.15 155.71c-4.42 7.65-1.8 17.44 5.86 21.86L143.94 256 8.01 334.43c-7.66 4.42-10.28 14.21-5.86 21.86l32.02 55.43c4.42 7.65 14.21 10.27 21.87 5.86l135.93-78.43V496c0 8.84 7.17 16 16.01 16h64.04c8.84 0 16.01-7.16 16.01-16V339.14l135.93 78.43c7.66 4.42 17.45 1.8 21.87-5.86l32.02-55.43c4.42-7.65 1.8-17.43-5.86-21.85z"/></svg> Slides adapted from Grant McDermott's EC 607 at University of Oregon.
+
+
+---
+class: inverse, center, middle
+name: prologue
+
+# Prologue
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+# Introductions
+
+### Me
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M436 160c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48v-48h20c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20v-64h20c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20v-64h20zm-228-32c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H118.4C106 384 96 375.4 96 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2z"/></svg> [Alex Marsh](https://alexiom.github.io/)
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> [alex.marsh@unc.edu](mailto:alex.marsh@unc.edu)
+
+<svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z"/></svg> Third Year Economics PhD Student (Empirical IO and Applied Econometrics)
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg> Hurricane, WV
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M319.4 320.6L224 416l-95.4-95.4C57.1 323.7 0 382.2 0 454.4v9.6c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-9.6c0-72.2-57.1-130.7-128.6-133.8zM13.6 79.8l6.4 1.5v58.4c-7 4.2-12 11.5-12 20.3 0 8.4 4.6 15.4 11.1 19.7L3.5 242c-1.7 6.9 2.1 14 7.6 14h41.8c5.5 0 9.3-7.1 7.6-14l-15.6-62.3C51.4 175.4 56 168.4 56 160c0-8.8-5-16.1-12-20.3V87.1l66 15.9c-8.6 17.2-14 36.4-14 57 0 70.7 57.3 128 128 128s128-57.3 128-128c0-20.6-5.3-39.8-14-57l96.3-23.2c18.2-4.4 18.2-27.1 0-31.5l-190.4-46c-13-3.1-26.7-3.1-39.7 0L13.6 48.2c-18.1 4.4-18.1 27.2 0 31.6z"/></svg> Undergraduate: Belmont University in Nashville, TN
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M319.4 320.6L224 416l-95.4-95.4C57.1 323.7 0 382.2 0 454.4v9.6c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-9.6c0-72.2-57.1-130.7-128.6-133.8zM13.6 79.8l6.4 1.5v58.4c-7 4.2-12 11.5-12 20.3 0 8.4 4.6 15.4 11.1 19.7L3.5 242c-1.7 6.9 2.1 14 7.6 14h41.8c5.5 0 9.3-7.1 7.6-14l-15.6-62.3C51.4 175.4 56 168.4 56 160c0-8.8-5-16.1-12-20.3V87.1l66 15.9c-8.6 17.2-14 36.4-14 57 0 70.7 57.3 128 128 128s128-57.3 128-128c0-20.6-5.3-39.8-14-57l96.3-23.2c18.2-4.4 18.2-27.1 0-31.5l-190.4-46c-13-3.1-26.7-3.1-39.7 0L13.6 48.2c-18.1 4.4-18.1 27.2 0 31.6z"/></svg> Master's: A private research university in Durham, NC <svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm80 168c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm-160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm194.8 170.2C334.3 380.4 292.5 400 248 400s-86.3-19.6-114.8-53.8c-13.6-16.3 11-36.7 24.6-20.5 22.4 26.9 55.2 42.2 90.2 42.2s67.8-15.4 90.2-42.2c13.4-16.2 38.1 4.2 24.6 20.5z"/></svg> .
+
+I enjoy:
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M502.63 39L473 9.37a32 32 0 0 0-45.26 0L381.46 55.7a35.14 35.14 0 0 0-8.53 13.79L360.77 106l-76.26 76.26c-12.16-8.76-25.5-15.74-40.1-19.14-33.45-7.78-67-.88-89.88 22a82.45 82.45 0 0 0-20.24 33.47c-6 18.56-23.21 32.69-42.15 34.46-23.7 2.27-45.73 11.45-62.61 28.44C-16.11 327-7.9 409 47.58 464.45S185 528 230.56 482.52c17-16.88 26.16-38.9 28.45-62.71 1.76-18.85 15.89-36.13 34.43-42.14a82.6 82.6 0 0 0 33.48-20.25c22.87-22.88 29.74-56.36 22-89.75-3.39-14.64-10.37-28-19.16-40.2L406 151.23l36.48-12.16a35.14 35.14 0 0 0 13.79-8.53l46.33-46.32a32 32 0 0 0 .03-45.22zM208 352a48 48 0 1 1 48-48 48 48 0 0 1-48 48z"/></svg> Playing guitar
+
+<svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M18.32 255.78L192 223.96l-91.28 68.69c-10.08 10.08-2.94 27.31 11.31 27.31h222.7c-9.44-26.4-14.73-54.47-14.73-83.38v-42.27l-119.73-87.6c-23.82-15.88-55.29-14.01-77.06 4.59L5.81 227.64c-12.38 10.33-3.45 30.42 12.51 28.14zm556.87 34.1l-100.66-50.31A47.992 47.992 0 0 1 448 196.65v-36.69h64l28.09 22.63c6 6 14.14 9.37 22.63 9.37h30.97a32 32 0 0 0 28.62-17.69l14.31-28.62a32.005 32.005 0 0 0-3.02-33.51l-74.53-99.38C553.02 4.7 543.54 0 533.47 0H296.02c-7.13 0-10.7 8.57-5.66 13.61L352 63.96 292.42 88.8c-5.9 2.95-5.9 11.36 0 14.31L352 127.96v108.62c0 72.08 36.03 139.39 96 179.38-195.59 6.81-344.56 41.01-434.1 60.91C5.78 478.67 0 485.88 0 494.2 0 504 7.95 512 17.76 512h499.08c63.29.01 119.61-47.56 122.99-110.76 2.52-47.28-22.73-90.4-64.64-111.36zM489.18 66.25l45.65 11.41c-2.75 10.91-12.47 18.89-24.13 18.26-12.96-.71-25.85-12.53-21.52-29.67z"/></svg> D&amp;D
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M0 160c0-53 114.6-96 256-96s256 43 256 96-114.6 96-256 96S0 213 0 160zm0 82.2V352c0 53 114.6 96 256 96s256-43 256-96V242.2c-113.4 82.3-398.5 82.4-512 0z"/></svg> Nashville Predators
+
+---
+class: inverse, center, middle
+name: syllabus
+
+# Syllabus Highlights
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+(Read the full document [here](https://alexmarsh.io/files/ECON390_Fall2021.pdf).)
+
+---
+
+# Why this course?
+
+Fill in the gaps left by traditional econometrics and methods classes.
+
+- Practical skills that tools that will complement your other econometric courses.
+- Neglected skills like how to actually find datasets in the wild and clean them.
+
+Data science skills are largely distinct from (and complementary to) the core 'metrics curriculum familiar to economists.
+
+- Data viz, cleaning and wrangling; programming; cloud computation; relational databases; machine learning; etc.
+
+---
+# Grading
+
+| Component                           | Weight |
+|:-|-:|
+| 5 × homework assignments            | 60% |
+| 1 × final project		                | 30% |
+| Participation    		                | 10% |
+
+- Number of homework assignments might change.
+ - Regardless, will be equally weighted.
+ - Individual weight = 60/$n$.
+- Homework assignments may be done in groups of at most 3.
+ - If done in groups *all group members are still expected to program on their own.*
+ - If done in groups, *please submit only one assignment.*
+- I will be requiring you to submit assignments with an R Markdown file and an R script.
+ - Discuss details when the first assignment comes up.
+- [Final Project](https://github.com/alexiom/ECON390/tree/main/final_project) 
+ - Details TBD.
+
+
+---
+# Course Overview
+
+## Course Goals
+
+1. Teach students how to competently program in R with good style,
+2. Teach students how to think and approach problems from a computational perspective,
+3. Teach students basic data science skills including data visualization and basic models,
+4. Imbue students with a desire to learn more about econometrics and data science.
+
+
+---
+
+# Course Overview
+
+## Learning Objectives
+
+1. Be able to write functioning,  readable,  and aesthetically pleasing code in the R programming language,
+2.  Give raw data, be able to manipulate the data into the correct format needed for an analysis,
+3.  Given data and a research question, be able to create a exploratory data visualization in the right format to get at answering the question,
+4.  Be able to communicate results to a non-technical audience.
+
+---
+
+# Lecture outline
+
+### Introduction
+
+- Introduction: Motivation, software installation, and data visualization
+- R language basics (will take some time)
+
+### Applications of Numerical Programming
+
+Topics here are good to know but are mostly to practice programming
+
+- Simulation
+- Optimization
+
+### Data skills
+
+- data.table and dplyr
+- Merging
+- Data sources and scrapping (might have to skip)
+
+---
+# Lecture Outline (Cont.)
+
+### Basics of Data Science
+
+- Data Visualization
+- Regression
+- Classification
+
+### Speakers
+- We will have a few speakers from industry come throughout the semester
+- Zillow
+- WestJet
+- Cox Communications
+
+---
+# Textbooks and Resources
+
+I will be pulling from various books that are publicly available.
+
+There is one book that I like that I don't believe is legally publicly available.
+- *Learning R* by Richard Cotton
+
+The remaining books are publicly available.
+- [*R for Data Science* by Hadley Wickham and Garrett Grolemund](https://r4ds.had.co.nz)
+- [*Hands-On Programming with R* by Garrett Grolemun](https://rstudio-education.github.io/hopr/)
+- [*An Introduction to Statistical Learning with Applications in R* by Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani](https://web.stanford.edu/~hastie/ISLRv2_website.pdf)
+
+[Swirl: Learn R, in R](https://swirlstats.com/students.html)
+- Great resource to learn the basics of R within R
+
+---
+class: inverse, center, middle
+name: started
+
+# Getting started
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+# Software installation and registration
+
+1. Download [R](https://www.r-project.org/).
+
+2. Download [RStudio](https://www.rstudio.com/products/rstudio/download/preview/).
+
+&lt;img src="pics/RStudio.png" width="49%" height="20%" style="display: block; margin: auto;" /&gt;
+
+--
+
+If you had trouble completing any of these steps, please raise your hand.
+
+---
+
+# Some OS-specific extras
+
+I'll detail further software requirements as and when the need arises. However, to help smooth some software installation issues further down the road, please also do the following (depending on your OS):
+
+- **Windows:** Install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). 
+- **Mac:** Might need to install Xcode later. This can take awhile, so I will let you know.
+- **Linux:** None (you should be good to go).
+
+---
+
+# Checklist
+
+☑ Do you have the most recent version of R?
+  
+  ```r
+  version$version.string
+  ```
+  
+  ```
+  ## [1] "R version 4.0.2 (2020-06-22)"
+  ```
+
+
+☑ Do you have the most recent version of RStudio? (The [preview version](https://www.rstudio.com/products/rstudio/download/preview/) is fine.)
+  
+  ```r
+  RStudio.Version()$version
+  ## Requires an interactive session but should return something like "[1] ‘1.4.1100’"
+  ```
+
+☑ Have you updated all of your R packages? 
+  
+  ```r
+  update.packages(ask = FALSE, checkBuilt = TRUE)
+  ```
+
+---
+class: inverse, center, middle
+name: r4ds
+
+# R for data science
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+name: whyr
+
+# Why R and RStudio? (cont.)
+&lt;img src="01-Intro_files/figure-html/indeeddotcom-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Why R and RStudio? (cont.)
+
+### Data science positivism
+
+- Alongside Python, R has become the *de facto* language for data science.
+  - See: [*The Impressive Growth of R*](https://stackoverflow.blog/2017/10/10/impressive-growth-r/), [*The Popularity of Data Science Software*](http://r4stats.com/articles/popularity/)
+- Open-source (free!) with a global user-base spanning academia and industry.
+  - "Do you want to be a profit source or a cost center?"
+
+### Bridge to applied economics and other tools
+
+- Already has all of the statistics and econometrics support, and is amazingly adaptable as a “glue” language to other
+programming languages and APIs.
+- The RStudio IDE and ecosystem allow for further, seemless integration.
+
+### Path dependency
+
+- It's also the language that I know best.
+--
+
+- (Learning multiple languages is a good idea, though.)
+
+---
+# Pros and Cons of R
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> Syntax is fairly basic for those with a math background.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> Great community with lots of support.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> Free.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> RStudio.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> Beautiful Graphics (better than Python <svg aria-hidden="true" role="img" viewBox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm80 168c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm-160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm194.8 170.2C334.3 380.4 292.5 400 248 400s-86.3-19.6-114.8-53.8c-13.6-16.3 11-36.7 24.6-20.5 22.4 26.9 55.2 42.2 90.2 42.2s67.8-15.4 90.2-42.2c13.4-16.2 38.1 4.2 24.6 20.5z"/></svg>).
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> Data wrangling.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 352 512" style="height:1em;width:0.69em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg> Slow.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 352 512" style="height:1em;width:0.69em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg> Demanding on RAM.
+
+--
+
+<svg aria-hidden="true" role="img" viewBox="0 0 352 512" style="height:1em;width:0.69em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg> Dependency on packages.
+
+---
+# R vs Python
+
+Both R and Python are common data science languages.
+
+However, Python is arguably the more important language in industry.
+
+--
+
+So why not learn Python for this class?
+
+--
+
+1. I think R is the easier of the two to get started learning.
+2. There is much commonality between the two with just a few quirks.
+3. R is better for learning statistics as it is ultimately a programming language designed with statistical computing in mind.
+
+--
+
+R is a language for statistics whereas Python is a language that can do statistics.
+
+---
+
+# Some R basics
+
+1. Everything is an object.
+
+2. Everything has a name.
+
+3. You do things using functions.
+
+4. Functions come pre-written in packages (i.e. "libraries"), although you can — and should — write your own functions too.
+
+--
+
+&lt;/br&gt;
+
+Points 1. and 2. can be summarized as an [object-orientated programming](https://en.wikipedia.org/wiki/Object-oriented_programming) (OOP) approach.
+  - This may sound super abstract now, but we'll see *lots* of examples over the coming weeks that will make things clear.
+
+---
+
+# R vs Stata
+
+If you're coming from Stata, some additional things worth emphasizing:
+
+- Multiple objects (e.g. data frames) can exist happily in the same workspace. 
+   - No more `keep`, `preserve`, `restore` hackery. (Though, props to [Stata 16](https://www.stata.com/new-in-stata/multiple-datasets-in-memory/).)
+   - This is a direct consequence of the OOP approach.
+
+- You will load packages at the start of every new R session. Make peace with this.
+  - "Base" R comes with tons of useful in-built functions. It also provides all the tools necessary for you to write your own functions. 
+  - However, many of R's best data science functions and tools come from external packages written by other users.
+
+- R easily and infinitely parallelizes. For free.
+  - Compare the cost of a [Stata/MP](https://www.stata.com/statamp/) license, nevermind the fact that you effectively pay per core...
+
+- You don't need to `tset or xtset` your data. (Although you can too.)
+
+---
+
+# R code example (linear regression)
+
+
+```r
+fit = lm(mpg ~ wt, data = mtcars)
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528,	Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+```
+
+---
+
+# Base R plot
+
+
+```r
+par(mar = c(4, 4, 1, .1)) ## Just for nice plot margins on this slide deck
+plot(mtcars$wt, mtcars$mpg)
+abline(fit, col = "red")
+```
+
+&lt;img src="01-Intro_files/figure-html/mtcars_baseplot-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2
+
+
+```r
+library(ggplot2)
+ggplot(data = mtcars, aes(x = wt, y = mpg)) + 
+  geom_smooth(method = "lm", col = "red") + 
+  geom_point() 
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+&lt;img src="01-Intro_files/figure-html/mtcars_ggplot-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+name: ggplot2
+
+# More ggplot2
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+# Install and load
+
+Open up your laptops. For the remainder of this first lecture, we're going continue playing around with [ggplot2](https://ggplot2.tidyverse.org/) (i.e. livecoding).
+
+If you don't have them already, install the `ggplot2` and `gapminder` packages via either:
+- **Console:** Enter `install.packages(c("ggplot2", "gapminder"), dependencies=T)`.
+- **RStudio:** Click the "Packages" tab in the bottom-right window pane. Then click "Install" and search for these two packages.
+  
+![](pics/install.gif)
+
+---
+
+# Install and load (cont.)
+
+Once the packages are installed, load them into your R session with the `library()` function.
+
+```r
+library(ggplot2)
+library(gapminder) ## We're just using this package for the gapminder data
+```
+
+Notice too that you don't need quotes around the package names any more. Reason: R now recognises these packages as defined objects with given names. ("Everything in R is an object and everything has a name.")
+
+--
+
+PS — A convenient way to combine the package installation and loading steps is with the [pacman package's](https://github.com/trinker/pacman) `p_load()` function. If you run `pacman::p_load(ggplot, gapminder)` it will first look to see whether it needs to install either package before loading them. Clever.
+- We'll get to this next week, but if you want to run a function from an (installed) package without loading it, you can use the `PACKAGE::package_function()` syntax.
+
+---
+
+# Brief aside: The gapminder dataset
+
+Because we're going to be plotting the [gapminder](https://github.com/jennybc/gapminder) dataset, it is helpful to know that it contains panel data on life expectancy, population size, and GDP per capita for 142 countries since the 1950s.
+
+
+```r
+gapminder
+```
+
+```
+## # A tibble: 1,704 × 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows
+```
+
+
+---
+
+# Elements of ggplot2
+
+[Hadley Wickham's](http://hadley.nz/) ggplot2 is one of the most popular packages in the entire R canon. 
+- It also happens to be built upon some deep visualization theory: i.e. Leland Wilkinson's [*The Grammar of Graphics*](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448).
+
+There's a lot to say about ggplot2's implementation of this "grammar of graphics" approach, but the three key elements are:
+
+1. Your plot ("the visualization") is linked to your variables ("the data") through various **aesthetic mappings**.
+
+2. Once the aesthetic mappings are defined, you can represent your data in different ways by choosing different **geoms** (i.e. "geometric objects" like points, lines or bars).
+
+3. You build your plot in **layers**.
+
+--
+
+&lt;/br&gt;
+
+That's kind of abstract. Let's review each element in turn with some actual plots.
+
+---
+
+# 1. Aesthetic mappings
+
+
+```r
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point()
+```
+
+&lt;img src="01-Intro_files/figure-html/aesthetics0-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# 1. Aesthetic mappings (cont.)
+
+
+```r
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point()
+```
+
+Focus on the top line, which contains the initialising `ggplot()` function call. This function accepts various arguments, including:
+- Where the data come from (i.e. `data = gapminder`).
+- What the aesthetic mappings are (i.e. `mapping = aes(x = gdpPercap, y = lifeExp)`).
+
+--
+
+The aesthetic mappings here are pretty simple: They just define an x-axis (GDP per capita) and a y-axis (life expecancy).
+- To get a sense of the power and flexibility that comes with this approach, however, consider what happens if we add more aesthetics to the plot call...
+
+---
+
+# 1. Aesthetic mappings (cont.)
+
+
+```r
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = continent)) + 
+  geom_point(alpha = 0.3) ## "alpha" controls transparency. Takes a value between 0 and 1.
+```
+
+&lt;img src="01-Intro_files/figure-html/aesthetics2-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+Note that I've dropped the "mapping =" part of the ggplot call. Most people just start with "aes(...)", since `ggplot2` knows the order of the arguments.
+
+---
+
+# 1. Aesthetic mappings (cont.)
+
+We can specify aesthetic mappings in the geom layer too.
+
+```r
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + ## Applicable to all geoms
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) ## Applicable to this geom only
+```
+
+&lt;img src="01-Intro_files/figure-html/aesthetics3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 1. Aesthetic mappings (cont.)
+
+Oops. What went wrong here?
+
+```r
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(aes(size = "big", col="black"), alpha = 0.3)
+```
+
+&lt;img src="01-Intro_files/figure-html/aesthetics_mistake-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 1. Aesthetic mappings (cont.)
+
+This is what we wanted to do!
+
+
+```r
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(size = 3, col="black", alpha = 0.3)
+```
+
+&lt;img src="01-Intro_files/figure-html/aesthetics_mistake_correct-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+**Note: ** `size` must take a numeric argument, not a character.
+
+---
+
+# 1. Aesthetic mappings (cont.)
+
+At this point, instead of repeating the same ggplot2 call every time, it will prove convenient to define an intermediate plot object that we can re-use.
+
+
+```r
+p = ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
+p
+```
+
+&lt;img src="01-Intro_files/figure-html/p-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 2. Geoms
+
+Once your variable relationships have been defined by the aesthetic mappings, you can invoke and combine different geoms to generate different visulaizations.
+
+
+```r
+p + geom_point(alpha = 0.3)  +
+  geom_smooth(method = "loess") 
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+&lt;img src="01-Intro_files/figure-html/geoms1-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 2. Geoms (cont.)
+
+Aesthetics can be applied differentially across geoms.
+
+
+```r
+p + geom_point(aes(size = pop, col = continent), alpha = 0.3)  +
+  geom_smooth(method = "loess") 
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+&lt;img src="01-Intro_files/figure-html/geoms2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# 2. Geoms (cont.)
+
+The previous plot provides a good illustration of the power (or effect) that comes from assigning aesthetic mappings "globally" vs in the individual geom layers.
+- Compare: What happens if you run the below code chunk?
+
+
+```r
+p_bad = ggplot(data = gapminder, 
+               aes(x = gdpPercap, y = lifeExp, size = pop, col = continent)) +
+  geom_point(alpha = 0.3)  +
+  geom_smooth(method = "loess") 
+```
+
+---
+# 2. Geoms (cont.)
+
+
+```r
+p_bad
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+&lt;img src="01-Intro_files/figure-html/geoms3_new-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 2. Geoms (cont.)
+
+Similarly, note that some geoms only accept a subset of mappings. E.g. `geom_density()` doesn't know what to do with the "y" aesthetic mapping.
+
+
+```r
+p + geom_density()
+```
+
+```
+## Error: geom_density requires the following missing aesthetics: y
+```
+
+&lt;img src="01-Intro_files/figure-html/geoms4-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 2. Geoms (cont.)
+
+We can fix that by being more careful about how we build the plot.
+
+
+```r
+ggplot(data = gapminder) + ## i.e. No "global" aesthetic mappings"
+  geom_density(aes(x = gdpPercap, fill = continent), alpha=0.3)
+```
+
+&lt;img src="01-Intro_files/figure-html/geoms5-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 3. Build your plot in layers
+
+We've already seen how we can chain (or "layer") consecutive plot elements using the `+` connector.
+- The fact that we can create and then re-use an intermediate plot object (e.g. "p") is testament to this.
+
+But it bears repeating: You can build out some truly impressive complexity and transformation of your visualization through this simple layering process.
+- You don't have to transform your original data; ggplot2 takes care of all of that.
+- For example (see next slide for figure).
+
+
+```r
+p2 =
+  p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar) + ## Switch to logarithmic scale on x-axis. Use dollar units.
+  labs(x = "Log (GDP per capita)", y = "Life Expectancy") + ## Better axis titles
+  theme_minimal() ## Try a minimal (b&amp;w) plot theme
+```
+
+---
+
+# 3. Build your plot in layers (cont.)
+
+&lt;img src="01-Intro_files/figure-html/layers2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# What else?
+
+We have barely scratched the surface of ggplot2's functionality... let alone talked about the entire ecosystem of packages that has been built around it. 
+- Here's are two quick additional examples to whet your appetite
+
+--
+
+Note that you will need to install and load some additional packages if you want to recreate the next two figures on your own machine. A quick way to do this:
+
+
+```r
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(hrbrthemes, gganimate)
+```
+
+---
+
+# What else? (cont.)
+
+Simple extension: Use an external package theme.
+
+```r
+# library(hrbrthemes)
+p2 + theme_modern_rc() + geom_point(aes(size = pop, col = continent), alpha = 0.2)
+```
+
+&lt;img src="01-Intro_files/figure-html/modern_rc_theme-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# What else? (cont.)
+
+Elaborate extension: Animation! (See the next slide for the resulting GIF.)
+
+```r
+library(gganimate)
+library(magick)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  # Here comes the gganimate specific bits
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year) +
+  ease_aes('linear')
+```
+
+---
+
+# What else? (cont.)
+
+&lt;img src="01-Intro_files/figure-html/ggamin2-1.gif" style="display: block; margin: auto;" /&gt;
+
+--
+
+Note that this animated plot provides a much more intuitive understanding of the underlying data. Just as [Hans Rosling](https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen) intended.
+
+---
+# What else? (cont.)
+
+There's a lot more to say, but I think we'll stop now for today's lecture.
+
+We also haven't touched on ggplot2's relationship to "tidy" data.
+  - It actually forms part of a suite of packages collectively known as the [tidyverse](https://www.tidyverse.org/). 
+  - We will get back to this in later lectures.
+
+Rest assured, you will be using ggplot2 throughout the rest of this course and developing your skills along the way.
+
+In the meantime, I want you to do some reading and practice on your own. Pick either of the following (or choose among the litany of online resources) and work through their examples:
+- [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) of *R for Data Science* by Hadley Wickham and Garett Grolemund.
+- [*Data Visualization: A Practical Guide*](https://socviz.co/makeplot.html) by Kieran Healy.
+- [Designing ggplots](https://designing-ggplots.netlify.com) by Malcom Barrett.
+
+---
+class: inverse, center, middle
+
+# Next lecture: Getting started with R.
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

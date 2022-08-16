@@ -1,0 +1,127 @@
+---
+title: "Example R Markdown File ECON 370"
+author: "Alex Marsh"
+date: "6/3/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Make Example Script Into R Markdown File
+
+### Library Packages
+
+```{r packages}
+library(ggplot2)
+library(latex2exp)
+```
+
+The reason I need these packages is because blah blah blah.
+
+### Global Parameters and Variables
+
+```{r globals}
+## ---- Set filepaths
+ECON370 = "/Users/alexmarsh/Documents/School/Teaching/ECON370/" # set 370 dir
+figdir   = paste0(ECON370,"Examples/")                          # set fig dir
+
+LEGEND = FALSE
+
+## ---- Create Shorter TeX function
+TeXc = function(txt) TeX(txt,output = "character")
+
+## ---- Set figure parameters
+res    = 400   # set figure resolution
+inch   = 4     # set figure width and height (ASSUMED SQUARE or w = h)
+tabsz  = 4     # set configuration text size
+equsz  = tabsz # set equation annotation text size
+rmnsz  = 5     # set roman numeral annotation text size
+
+## ---- Set Equation Annotation LaTeX 
+LHS     = "\\beta(\\alpha) "                          # set LHS of equ
+RHS_Con = " \\frac{\\Delta \\Pi}{p (1-\\delta)}"      # set constant for equ
+RHS_Sl  = "\\frac{ \\delta}{1- \\delta} \\; \\alpha"  # set slope for equ
+BForm   = paste0("$",LHS,"=",RHS_Con,"+",RHS_Sl,"$")  # paste equ together
+LineTeX = TeXc(BForm)                                 # create equ LaTeX code
+
+## ---- Set parameters For Plot
+p_i   = 200  # set price 
+Delpi = 70   # set Delta Pi
+delta = 0.2  # set delta
+```
+
+
+### Calculate Values Needed For Plots
+
+```{r values}
+
+## ---- Create Indifference Line Points
+a  = Delpi/((1-delta)*p_i)  # set indifference equation intercept
+b  = delta/(1-delta)        # set indifference equation slope
+x1 = 0                      # set first x value
+y1 = a+b*x1                 # set first y value
+x2 = (1-a)/(1+b)            # set end x value
+y2 = a+b*x2                 # set end y value
+
+## ---- Create Target Group Area Data
+PolyData = data.frame(
+  Target = c(rep("Yes",3),rep("No",4)), # targeting group ids
+  "x"    = c(0,0,x2,0,0,x2,1),          # x values
+  "y"    = c(y1,1,y2,0,y1,y2,0)         # y values
+)
+
+PolyCols = alpha("#4B9CD3",c(0.875,0.125))
+names(PolyCols) = c("Yes","No")
+```
+
+
+### Create Plot
+
+```{r plot}
+
+## ---- Create Plot
+TargetPlot = ggplot() + 
+    
+  # Create 2D Simplex
+  geom_segment(aes(x = 0, y = 1, xend = 1, yend = 0)) + 
+  geom_segment(aes(x = 0, y = 0, xend = 1, yend = 0)) +
+  geom_segment(aes(x = 0, y = 0, xend = 0, yend = 1)) +
+    
+  # Create Dotted Line for Indifference Line
+  geom_segment(aes(x=x1, y=y1, xend=x2, yend=y2), linetype="longdash") +
+    
+  # Create Shaded Polynimal Locations for Targeting Groups
+  geom_polygon(data = PolyData,aes(x = x, y = y,fill=Target)) +
+  scale_fill_manual(values=PolyCols) + 
+    
+  # Add Equation Annotation to Plot
+  annotate("text", label=LineTeX, x=0.75, y=0.62, parse=T, size=equsz)
+
+TargetPlot = TargetPlot + 
+      
+    # Add Targeting Annotations
+    annotate("text",label="Target", x=0.15, y=0.65, size=equsz) + 
+    annotate("text",label="Don't Target", x=0.4, y=0.28, size=equsz)  
+  
+  ## ---- Format Plot Theme To Be Blank
+TargetPlot = TargetPlot + 
+    
+  # Set Values of x and y axis ticks
+    scale_x_continuous(breaks = seq(0,1,0.1), limits = c(0,1)) +
+    scale_y_continuous(breaks = seq(0,1,0.1), limits = c(0,1)) +
+    xlab(TeX("$\\alpha$")) + ylab(TeX("$\\beta$")) + 
+    
+    # Format Plot to be Blank
+    theme_minimal() + 
+    theme(panel.background = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.text.y = element_text(margin = margin(r = -0.25,unit="cm")),
+          axis.text.x = element_text(margin = margin(t = -0.25,unit="cm")),
+          legend.position = if(LEGEND) c(0.63,0.8) else "No"
+  )
+
+TargetPlot
+```
