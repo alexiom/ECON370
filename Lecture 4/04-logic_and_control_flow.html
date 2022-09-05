@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data Science for Economists</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alex Marsh" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Data Science for Economists
+]
+.subtitle[
+## Lecture 4: Logic and Control Flow
+]
+.author[
+### Alex Marsh
+]
+.date[
+### University of North Carolina | <a href="https://github.com/alexiom/ECON370">ECON 370</a>
+]
+
+---
+
+name: toc
+
+&lt;style type="text/css"&gt;
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+&lt;/style&gt;
+
+
+
+# Table of contents
+
+1. [Introduction](#intro)
+
+2. [Logic](#logic)
+
+3. [Control Flow](#control)
+
+
+---
+class: inverse, center, middle
+name: intro
+
+# Introduction
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+# Agenda
+
+This lecture will teach you the bare essentials of logic needed for programming.
+
+While you do not need to master these concepts, there are a few things that will be very important to know.
+
+After touching on logic, we will move on to control flow, which is where knowing some basic logic is very helpful.
+
+---
+class: inverse, center, middle
+name: logic
+
+# Logic
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+# Motivation
+
+When programming, sometimes we'd like for a certain line to execute only when another condition is met.
+
+Other times, we would like to do something different in a bunch of different cases.
+
+Lastly, sometimes we would like to continue to do things until come condition is met.
+
+All these require a basic understanding of logic to implement.
+
+---
+# Logical Statements
+
+**Definition:** *A* ***statement (or proposition)*** *is a sentence which can be classified as true or
+false without ambiguity. The truth or falsity of the statement is called the* ***truth value.***
+
+--
+
+
+**Examples**
+
+1. "Every continuous function is differentiable" is a statement with truth value "false."
+2. "x &lt; 2" is true for some x and false for some others. If we have a particular context in mind, then it could be a statement. Otherwise it is not.
+3. "7 is a prime number." is a statement with truth value.
+4. "Every even number greater than 2 is the sum of two primes" is a statement, whose truth value is not known...yet.
+
+---
+# Logical Connectives
+
+Many times we would like to combine simple statements to make compound statements. To do this, we need logical connectives to "connect" simple statements into compound statements.
+
+--
+
+
+**Definition:** *Suppose* `\(P,Q\)` *are both statements, we define the following connectives:*
+
+1. *Negation:* `\(\neg P\)` represents the logical opposite of `\(P\)` 
+ - i.e. if `\(P\)` is true, then `\(\neg P\)` is false and vice versa.
+2. *Conjunction ("And"):* `\(P\wedge Q\)` is true only when both `\(P\)` and `\(Q\)` are true.
+3. *Disjunction ("Or"):* `\(P \vee Q\)` is true if at least one of `\(P\)` and `\(Q\)` is true.
+4. *Implication:* `\(P\implies Q\)` is true unless when `\(P\wedge \neg Q\)` is true.
+ - Read "If P, then Q."
+5. *Equivalence:* `\(P \iff Q\)` is true if both `\(P\implies Q\)` and `\(Q \implies P\)` are true.
+ - Read "P if and only if (iff) Q."
+
+--
+
+**Examples**
+1. If I am in New York, then I am in the US.
+2. If I am in the US, then I am in New York.
+
+---
+# Truth Tables
+
+To see the truth value of the logical connectives, we can use what's called a truth table.
+
+![No "x" or "y" here...](pics/truth_table.png)
+We will come back to these shortly.
+
+---
+# De Morgan's Laws
+
+De Morgan's Laws states the the following two statements are true.
+1. `\(\neg (P \wedge Q) \iff \neg P \vee \neg Q\)`
+2. `\(\neg (P \vee Q) \iff \neg P \wedge \neg Q\)`
+
+In English,
+1. "Not (P and Q) is the same as (Not P) or (Not Q)"
+1. "Not (P or Q) is the same as (Not P) and (Not Q)"
+
+We're going to go through the proof.
+
+---
+# Variations of Conditional Statements
+
+**Definition:** *Suppose* `\(P\)` *and* `\(Q\)` *are statements. Consider the statement* `\(P\implies Q\)`, *we further define its*
+1. **converse:** `\(Q\implies P\)`
+2. **inverse:** `\(\neg P\implies \neg Q\)`
+3. **contrapositive:** `\(\neg Q \implies \neg P\)`
+
+--
+
+**Examples** 
+
+Statement: "If I am in New York, then I am in the U.S."
+1. **Converse:** "If I am in the U.S., then I am in New York."
+2. **Inverse:** "If I am not in New York, then I am not in the U.S."
+3. **Contrapositive:** "If I am not in the U.S., then I am not in New York."
+
+--
+
+*The contrapositive and only the contrapositive is logically equivalent to the original statement.*
+
+Or 
+
+`$$P\implies Q \iff \neg Q \implies \neg P$$`
+---
+class: inverse, center, middle
+name: control
+
+# Control Flow
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Intro to Control Flow
+
+Control flow refers to ways in which we control the order in which code is executed.
+
+The reason we learned the logic above is because we can use logical gates to control the path our code takes.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pics/control_flow.png" alt="A nice image." width="50%" /&gt;
+&lt;p class="caption"&gt;A nice image.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# if Statements
+
+If statements are the most fundamental aspect of control flow.
+
+If something is true, then the code is executed. Otherwise, the code moves on.
+
+If statements must take a logical as an input: either `TRUE` or `FALSE`.
+
+
+```r
+x = 2
+if(x &lt; 0){
+  print("x is less than 0")
+}
+```
+
+Notice nothing printed!
+
+
+```r
+x = -1
+if(x &lt; 0){
+  print("x is less than 0")
+}
+```
+
+```
+## [1] "x is less than 0"
+```
+
+---
+# if, else if, and else
+
+However, sometimes we want to check multiple conditions. We can use else if and else statements.
+
+
+```r
+x = runif(1,-1,1)
+if(x &gt; 0){
+  print("x is positive!")
+} else if(x &lt; 0){
+  print("x is negative!")
+} else{
+  print("x is 0!")
+}
+```
+
+```
+## [1] "x is negative!"
+```
+
+```r
+x
+```
+
+```
+## [1] -0.424845
+```
+---
+# More on if Statments
+
+Let me show you an example of bad code
+
+```r
+grade = 85 + rnorm(1,sd=5)
+if (grade &gt;= 90) {
+  print(paste0("A ",round(grade)," is an A"))
+} 
+if (grade &gt;= 80 &amp; grade &lt; 90) {
+  print(paste0("A ",round(grade)," is a B"))
+} 
+```
+
+```
+## [1] "A 89 is a B"
+```
+
+```r
+if (grade &gt;= 70 &amp; grade &lt; 80) {
+  print(paste0("A ",round(grade)," is a C"))
+} 
+if (grade &gt;= 60 &amp; grade &lt; 70) {
+  print(paste0("A ",round(grade)," is a D"))
+} 
+if(grade &lt; 50){
+  print(paste0("A ",round(grade)," is an F"))
+}
+```
+
+---
+# More on if Statments
+
+To write clean code, think smart:
+
+```r
+if (grade &gt;= 90) {
+  print(paste0("A ",round(grade)," is an A"))
+} else if (grade &gt;= 80) {
+  print(paste0("A ",round(grade)," is a B"))
+} else if (grade &gt;= 70) {
+  print(paste0("A ",round(grade)," is a C"))
+} else if (grade &gt;= 60) {
+  print(paste0("A ",round(grade)," is a D"))
+} else{
+  print(paste0("A ",round(grade)," is an F"))
+}
+```
+
+```
+## [1] "A 89 is a B"
+```
+---
+# More on if Statments
+
+The "else if" and "else" statements must be on the same line as the curly bracket:
+
+
+```r
+statement = F
+if(statement)
+{print("It's True!")
+}
+else
+{print("It's False!")
+}
+```
+
+```
+## Error: &lt;text&gt;:5:1: unexpected 'else'
+## 4: }
+## 5: else
+##    ^
+```
+
+
+```r
+statement = F
+if(statement)
+{print("It's True!")
+}else
+{print("It's False!")
+}
+```
+
+```
+## [1] "It's False!"
+```
+---
+# More on if Statments
+
+If everything fits on one line, that then don't need curly brackets
+
+```r
+x1 = if(TRUE) 2 else 3
+x2 = if(FALSE) 2 else 3
+c(x1,x2)
+```
+
+```
+## [1] 2 3
+```
+
+---
+# Vectorized if Statments
+
+With the standard if statement, R only allows a single logical value to be supplied. 
+ - If a vector is supplied, it only takes the first element.
+
+```r
+vals = c(T,F)
+if(vals){
+  print("TRUE!")
+}
+```
+
+```
+## Warning in if (vals) {: the condition has length &gt; 1 and only the first element
+## will be used
+```
+
+```
+## [1] "TRUE!"
+```
+
+--
+
+To do if else operations with a vector of logicals, use `ifelse()`
+
+
+```r
+x = 1:10
+ifelse(x %% 2 == 0, "Even","Odd")
+```
+
+```
+##  [1] "Odd"  "Even" "Odd"  "Even" "Odd"  "Even" "Odd"  "Even" "Odd"  "Even"
+```
+
+---
+# Conditions
+
+Sometimes we would like to throw an error, warning, or message while controlling the flow of the code.
+
+This can be done with the following respective functions: `stop()`, `warning()`, `message()`.
+
+
+```r
+x = 0
+if(x&gt;0){
+  print(1/x)
+}else if(x&lt;0){
+  print(-1/x)
+}else{stop("You cannot divide by 0!")}
+```
+
+```
+## Error in eval(expr, envir, enclos): You cannot divide by 0!
+```
+
+```r
+warning("This is a warning!")
+```
+
+```
+## Warning: This is a warning!
+```
+
+```r
+message("This is a message!")
+```
+
+```
+## This is a message!
+```
+---
+# Conditions
+
+- Errors stop code from running. These should be used to prevent something very bad from running.
+- Warnings will still allow for code to run, but in most cases, caution should be taken when the warning is triggered.
+- Messages can be useful when writing functions to see what is happening inside of it.
+ - More to come later.
+
+---
+
+class: inverse, center, middle
+
+# Next lecture(s): Loops
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

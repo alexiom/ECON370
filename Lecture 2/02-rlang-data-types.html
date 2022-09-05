@@ -13,11 +13,18 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Data Science for Economists
+]
+.subtitle[
 ## Lecture 2: R language basics
+]
+.author[
 ### Alex Marsh
-### University of North Carolina | <a
-href="https://github.com/alexiom/ECON370">ECON 370</a>
+]
+.date[
+### University of North Carolina | <a href="https://github.com/alexiom/ECON370">ECON 370</a>
+]
 
 ---
 
@@ -63,13 +70,6 @@ name: prologue
 
 ☑ Did anyone play around with `ggplot2`?
 
---
-
-### Packages that you will need for today.
-
-We're going to work almost exclusively in **base** R today.
-- I'll also use the [**dplyr**](https://dplyr.tidyverse.org/) package, but only to demonstrate a few additional considerations for working with non-base libraries. Install/update it now, either through RStudio (recommended) or from your R console (`install.packages("dplyr"), dependencies = TRUE`). 
-- (P.S. If you're on Linux, I recommend installing the pre-compiled binary version of **dplyr** from [RSPM](https://packagemanager.rstudio.com/client/#/repos/1/overview). This avoids the need to build the package from source, greatly reducing your installation time. See related example [here](https://twitter.com/grant_mcdermott/status/1263951531461603328).)
 
 ---
 
@@ -447,14 +447,14 @@ Numeric data are "numbers"
 
 
 ```r
-my_age    = 27
+my_age    = 28
 my_height = 5 + 11/12
 
 c(my_age,my_height)
 ```
 
 ```
-## [1] 27.000000  5.916667
+## [1] 28.000000  5.916667
 ```
 
 ```r
@@ -529,7 +529,7 @@ log(-1)
 
 
 ```r
-also_my_age = 27L
+also_my_age = 28L
 class(my_age)
 ```
 
@@ -715,7 +715,29 @@ R_is_fun
 ## [1] TRUE
 ```
 ---
+# Aside: Binary operators
 
+Operators like +, -, /, %%, %in%, etc are special functions in R that are binary operators.
+--
+
+Notice that above to do "not in," it was a bit clunky:
+
+```r
+!(5 %in% c(1,2,3,4))
+```
+
+--
+You can define a new binary operator like so:
+
+```r
+"%!in%" = function(a,b){!(a %in% b)}
+5 %!in% c(1,2,3,4)
+```
+
+```
+## [1] TRUE
+```
+---
 # Data Types (cont.)
 
 ## Special Logicals
@@ -1561,7 +1583,7 @@ fact_groups
 ```
 
 ```
-##  [1] "d" "r" "d" "l" "w" "p" "s" "s" "h" "q"
+##  [1] "o" "m" "x" "s" "k" "r" "t" "u" "r" "k"
 ```
 
 ```r
@@ -1570,7 +1592,7 @@ fact_groups
 ```
 
 ```
-##  [1] d r d l w p s s h q
+##  [1] o m x s k r t u r k
 ## Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z
 ```
 
@@ -1718,6 +1740,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

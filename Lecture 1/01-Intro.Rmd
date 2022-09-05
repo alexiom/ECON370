@@ -75,7 +75,7 @@ name: prologue
 
 `r fa('envelope')` [alex.marsh@unc.edu](mailto:alex.marsh@unc.edu)
 
-`r fa('graduation-cap')` Third Year Economics PhD Student (Empirical IO and Applied Econometrics)
+`r fa('graduation-cap')` Fourth Year Economics PhD Student (Empirical IO, Empirical Auctions, and Applied Econometrics)
 
 --
 
@@ -196,9 +196,7 @@ Topics here are good to know but are mostly to practice programming
 
 ### Speakers
 - We will have a few speakers from industry come throughout the semester
-- Zillow
-- WestJet
-- Cox Communications
+- TBD
 
 ---
 # Textbooks and Resources
@@ -806,7 +804,6 @@ class: inverse, center, middle
 
 # Next lecture: Getting started with R.
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
 
 ```{r gen_pdf, include = FALSE, cache = FALSE, eval = TRUE}
 infile = list.files(pattern = '.html')

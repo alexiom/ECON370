@@ -34,6 +34,7 @@ opts_chunk$set(
   )
 library(hrbrthemes)
 library(fontawesome)
+
 ```
 
 # Table of contents
@@ -66,13 +67,6 @@ name: prologue
 
 ☑ Did anyone play around with `ggplot2`?
 
---
-
-### Packages that you will need for today.
-
-We're going to work almost exclusively in **base** R today.
-- I'll also use the [**dplyr**](https://dplyr.tidyverse.org/) package, but only to demonstrate a few additional considerations for working with non-base libraries. Install/update it now, either through RStudio (recommended) or from your R console (`install.packages("dplyr"), dependencies = TRUE`). 
-- (P.S. If you're on Linux, I recommend installing the pre-compiled binary version of **dplyr** from [RSPM](https://packagemanager.rstudio.com/client/#/repos/1/overview). This avoids the need to build the package from source, greatly reducing your installation time. See related example [here](https://twitter.com/grant_mcdermott/status/1263951531461603328).)
 
 ---
 
@@ -269,7 +263,6 @@ Numeric data are "numbers"
 ```{r}
 my_age    = 28
 my_height = 5 + 11/12
-#my_height_apps = 6 + 0
 
 c(my_age,my_height)
 class(my_age)

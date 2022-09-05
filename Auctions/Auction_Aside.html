@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data Science for Economists</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alex Marsh" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Data Science for Economists
+]
+.subtitle[
+## A Quick Primer on Auctions
+]
+.author[
+### Alex Marsh
+]
+.date[
+### University of North Carolina | <a href="https://github.com/alexiom/ECON370">ECON 370</a>
+]
+
+---
+
+name: toc
+
+&lt;style type="text/css"&gt;
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+&lt;/style&gt;
+
+
+
+# Table of contents
+
+1. [Auctions](#auctions)
+
+---
+class: inverse, center, middle
+name: auctions
+
+# Auctions
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Motivation
+
+Auction theory has been one of the successes of economics in the past 30-40 years. 
+
+Since auctions are very common in the real world, economists who study empirical auctions have also cropped up to estimate the models the theorists have developed.
+
+While we will not delve too deeply into auctions, I do need to give you just enough information for the problem set. 
+
+---
+# Auction Models
+
+The way we model auctions is that bidders have some *valuation* `\(v_i\)` that comes from some distribution `\(F_v\)`. The valuation is how much one "values" the object.
+
+The valuations could be iid&lt;sup&gt;1&lt;/sup&gt; or iid conidtional on observables or have correlated valuations. 
+
+.footnote[
+&lt;sup&gt;1&lt;/sup&gt; Independent and identically distributed. This means each valuation is independent of all others and all valuations come from the same distribution.
+]
+
+Bidders then know the rules of the auction and submit bids. They bid in such a way that maximizes their expected utility: `$$\max_{b_i} v_i \text{Pr}(\text{win with } b_i) - E[p(b_i) | b_i]$$`
+
+I am keeping this vague because there are different auction formats and not all require paying the exact bid you submitted e.g. second price auctions.
+
+---
+# Auction Models (Cont.)
+
+Once a bidder has her valuation, we think that she forms some optimal bidding strategy `\(b(v_i)\)` that maps her valuation to a bid. We denote the observed bid `\(b_i\)` and we say that `\(b_i = b(v_i)\)` with equilibrium bidding.
+
+In empirical auctions, the goal is to be able to recover `\(v_i\)` or `\(F_v\)` from a bunch of bidding data `\((b_i)_{i=1}^{N}\)`, information about how the auction was ran, and assumptions about bidding behavior. 
+
+As long as `\(b(v_i)\)` is monotonic (higher the valuation, higher the bid), then recovering `\(v_i\)` comes down to inverting `\(b(v_i)\)`, or since `\(b_i = b(v_i)\)`, then `\(v_i = b^{-1}(b_i)\)`.
+
+Some auction formats: 
+1. First-Price Sealed Bid
+2. Second-Price Sealed Bid
+2. English (Ascending) 
+3. Dutch
+5. All-Pay
+
+---
+# Auction Formats
+
+- First-price Sealed Bid: All bidders submit a secret bid, then highest bidder wins and pays the bid.
+- Second-Price Sealed Bid: All bidders submit a secret bid, then highest bidder wins but pays the second highest bid.
+- English: Bidding starts at some initial bid and bidders can incrementally increase the bid until only one bidder remains. Sometimes there is a minimum bid increment. 
+- Dutch: The price starts at a very large value and incrementally decreases until someone declares they are willing to pay that price for the object.
+ - "Strategically equivalent" to first-price sealed bid auction.
+- All-Pay: Similar to other sealed bid auctions, but everyone pays their bid regardless of winning or loosing.
+ - Sometimes used to model R&amp;D races/competitions.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
